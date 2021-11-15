@@ -10,7 +10,7 @@ require 'byebug'
 def scrap_csv
   doc_csv = CSV.parse(File.read("data_csv.csv"), headers: true)
   convert_to_a_with_h(doc_csv)
-  generate_csv(doc_csv)
+  generate_csv(@array_of_hash)
 end
 
 def convert_to_a_with_h(doc_csv)
@@ -21,9 +21,11 @@ def convert_to_a_with_h(doc_csv)
   puts @array_of_hash.to_h
 end
 
-def generate_csv(doc_csv)
-  CSV.open("Enfin.csv", "a+") do |doc_csv|
-    doc_csv << [@array_of_hash]
+def generate_csv(array_of_hash)
+  CSV.open("Enfin.csv", "a+") do |row|
+    array_of_hash.each do |hash|
+      row << hash
+    end
   end
 end
 def perform
